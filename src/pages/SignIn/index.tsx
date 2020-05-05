@@ -1,4 +1,5 @@
 import React, { useCallback, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -14,7 +15,7 @@ import logoImg from '../../assets/logo.svg';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import { Container, Content, Background } from './styles';
+import { Container, Content, Background, AnimatedContent } from './styles';
 
 interface SignFormData {
   email: string;
@@ -51,6 +52,7 @@ const SignIn: React.FC = () => {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
+          return;
         }
         addToast({
           type: 'error',
@@ -66,24 +68,26 @@ const SignIn: React.FC = () => {
   return (
     <Container>
       <Content>
-        <img src={logoImg} alt="GoBarber" />
+        <AnimatedContent>
+          <img src={logoImg} alt="GoBarber" />
 
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <Input name="email" placeholder="E-mail" icon={FiMail} />
-          <Input
-            name="password"
-            type="password"
-            placeholder="Senha"
-            icon={FiLock}
-          />
-          <Button type="submit">Entrar</Button>
-          <a href="forgot">Esqueci minha senha</a>
-        </Form>
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <Input name="email" placeholder="E-mail" icon={FiMail} />
+            <Input
+              name="password"
+              type="password"
+              placeholder="Senha"
+              icon={FiLock}
+            />
+            <Button type="submit">Entrar</Button>
+            <a href="forgot">Esqueci minha senha</a>
+          </Form>
 
-        <a href="forgot">
-          <FiLogIn />
-          Criar conta
-        </a>
+          <Link to="signup">
+            <FiLogIn />
+            Criar conta
+          </Link>
+        </AnimatedContent>
       </Content>
       <Background />
     </Container>
