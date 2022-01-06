@@ -19,8 +19,9 @@ interface AuthState {
 
 interface User {
   id: string;
-  avatar_url: string;
   name: string;
+  email: string;
+  avatar_url: string;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
